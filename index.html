@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="withoutThrottle">With Out Throttle</button>
+    <button id="withThrottle">With Throttle</button>
+    <script>
+        function buttonClickHandler(e){
+            console.log("Button cliked",e)
+        }
+        function withThrottle(func,limit){
+            let flag=true;
+            return (e)=>{
+                if(flag){
+                    func(e);
+                    flag = false;
+                    setTimeout(()=>{
+                        flag=true;
+                    },limit)
+                }
+            }
+        }
+        document.getElementById("withoutThrottle")
+        .addEventListener("click",buttonClickHandler);
+
+        document.getElementById("withThrottle")
+        .addEventListener("click",withThrottle(buttonClickHandler,5000))
+    </script>
+</body>
+</html>
